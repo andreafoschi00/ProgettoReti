@@ -1,4 +1,4 @@
-''' Progetto di programmazione di reti - Foschi Andrea - Python Web Server'''
+''' Progetto di programmazione di reti - Foschi Andrea - Python Web Server '''
 
 import http.server
 import socketserver
@@ -17,7 +17,17 @@ htmlFiles = [("chisiamo.html","html/chisiamo.html"),
 
 # Uso un Handler personalizzato
 class CustomHandler (http.server.SimpleHTTPRequestHandler):
-    
+
+    def do_HEAD(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+
+    def do_GET(self):
+        print(self.headers)
+        print("Path:", self.path)
+        self.find_file()
+        
     # Questa funzione si usa per la ricerca del file .html richiesto
     def find_file(self):
         found = False
@@ -31,16 +41,6 @@ class CustomHandler (http.server.SimpleHTTPRequestHandler):
         if found == False:
             self.do_HEAD()
             self.wfile.write(bytes("404", "utf8"))
-
-    def do_HEAD(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-
-    def do_GET(self):
-        print(self.headers)
-        print("Path:", self.path)
-        self.find_file()
 
 # Il numero della porta può essere fornito da riga di comando (default 8080)
 if sys.argv[1:]:
