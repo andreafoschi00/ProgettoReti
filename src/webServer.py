@@ -6,12 +6,10 @@ import sys
 import signal
 
 # Struttura dati che mappa il nome dei file .html nei percorsi relativi
-Files = [("chisiamo.html","html/chisiamo.html"),
+files = [("chisiamo.html","html/chisiamo.html"),
              ("contatti.html", "html/contatti.html"),
              ("", "html/index.html"),
              ("index.html", "html/index.html"),
-             ("login.html", "html/login.html"),
-             ("logout.html", "html/logout.html"),
              ("prenotazioni.html","html/prenotazioni.html"),
              ("servizi.html", "html/servizi.html")]
 
@@ -26,17 +24,17 @@ class CustomHandler (http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         print(self.headers)
         print("Path:", self.path)
-        if(self.path[:4] == "/res"):
+        if self.path[:4] == "/res":
             # Il file info.pdf deve essere trattato diversamente dagli altri files
             http.server.SimpleHTTPRequestHandler.do_GET(self)
         else:
-            self.find_file()
+            self.find_file()        
         
     # Questa funzione si usa per la ricerca del file .html richiesto
     def find_file(self):
         print("Subpath", self.path[1:])
         found = False
-        for file in Files:
+        for file in files:
             if file[0] == self.path[1:]:
                 page = open(file[1]).read()
                 self.do_HEAD()
