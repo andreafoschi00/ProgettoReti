@@ -23,7 +23,6 @@ class CustomHandler (http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         print(self.headers)
-        print("Path:", self.path)
         if self.path[:4] == "/res":
             # Il file info.pdf deve essere trattato diversamente dagli altri files
             http.server.SimpleHTTPRequestHandler.do_GET(self)
@@ -32,7 +31,6 @@ class CustomHandler (http.server.SimpleHTTPRequestHandler):
         
     # Questa funzione si usa per la ricerca del file .html richiesto
     def find_file(self):
-        print("Subpath", self.path[1:])
         found = False
         for file in files:
             if file[0] == self.path[1:]:
