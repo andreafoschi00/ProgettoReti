@@ -13,8 +13,7 @@ Files = [("chisiamo.html","html/chisiamo.html"),
              ("login.html", "html/login.html"),
              ("logout.html", "html/logout.html"),
              ("prenotazioni.html","html/prenotazioni.html"),
-             ("servizi.html", "html/servizi.html"),
-             ("res/info.pdf", "res/info.pdf")]
+             ("servizi.html", "html/servizi.html")]
 
 # Uso un Handler personalizzato
 class CustomHandler (http.server.SimpleHTTPRequestHandler):
